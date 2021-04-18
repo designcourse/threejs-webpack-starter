@@ -21,8 +21,8 @@ const material = new THREE.MeshBasicMaterial()
 material.color = new THREE.Color(0xff0000)
 
 // Mesh
-const sphere = new THREE.Mesh(geometry,material)
-scene.add(sphere)
+const torus = new THREE.Mesh(geometry,material)
+scene.add(torus)
 
 // Lights
 
@@ -90,7 +90,7 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sphere.rotation.y = .5 * elapsedTime
+    torus.rotation.y = .5 * elapsedTime
 
     // Update Orbital Controls
     // controls.update()
