@@ -25,7 +25,6 @@ const sphere = new THREE.Mesh(geometry,material)
 scene.add(sphere)
 
 // Lights
-
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
 pointLight.position.x = 2
 pointLight.position.y = 3
