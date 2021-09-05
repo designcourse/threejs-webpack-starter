@@ -1,106 +1,105 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'dat.gui'
+//import * as dat from 'dat.gui'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+
+
+
 
 // Debug
-const gui = new dat.GUI()
+//const gui = new dat.GUI()
 
-// Canvas
-const canvas = document.querySelector('canvas.webgl')
+let camera, controls, scene, renderer;
 
-// Scene
-const scene = new THREE.Scene()
+			init();
+			//render(); // remove when using next line for animation loop (requestAnimationFrame)
+			animate();
 
-// Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+			function init() {
 
-// Materials
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xcccccc );
+				scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
 
-const material = new THREE.MeshBasicMaterial()
-material.color = new THREE.Color(0xff0000)
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
 
-// Mesh
-const sphere = new THREE.Mesh(geometry,material)
-scene.add(sphere)
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.set( 5, 0, 0 );
+                
+				//telephone 
 
-// Lights
+                const gltfLoader = new GLTFLoader()
 
-const pointLight = new THREE.PointLight(0xffffff, 0.1)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
-scene.add(pointLight)
+                gltfLoader.load('telephone.gltf', (gltf) => {
+ 
+                    gltf,scene.scale.set(0.3, 0.3, 0.3)
+                    scene.add(gltf.scene)
+                
 
-/**
- * Sizes
- */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+                })
+				// controls
 
-window.addEventListener('resize', () =>
-{
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
+				controls = new OrbitControls( camera, renderer.domElement );
+				controls.listenToKeyEvents( window ); // optional
 
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+				//controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
+				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+				controls.dampingFactor = 0.05;
 
-/**
- * Camera
- */
-// Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 0
-camera.position.y = 0
-camera.position.z = 2
-scene.add(camera)
+				controls.screenSpacePanning = false;
 
-// Controls
-// const controls = new OrbitControls(camera, canvas)
-// controls.enableDamping = true
+				controls.minDistance = 2;
+				controls.maxDistance = 5;
 
-/**
- * Renderer
- */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    alpha: true,
-})
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+				//controls.maxPolarAngle = Math.PI / 2;
 
-/**
- * Animate
- */
+				
 
-const clock = new THREE.Clock()
+				// lights
 
-const tick = () =>
-{
+				const dirLight1 = new THREE.DirectionalLight( 0xffffff );
+				dirLight1.position.set( 1, 1, 1 );
+				scene.add( dirLight1 );
 
-    const elapsedTime = clock.getElapsedTime()
+				const dirLight2 = new THREE.DirectionalLight( 0x002288 );
+				dirLight2.position.set( - 1, - 1, - 1 );
+				scene.add( dirLight2 );
 
-    // Update objects
-    sphere.rotation.y = .5 * elapsedTime
+				const ambientLight = new THREE.AmbientLight( 0x222222 );
+				scene.add( ambientLight );
 
-    // Update Orbital Controls
-    // controls.update()
+				//
 
-    // Render
-    renderer.render(scene, camera)
+				window.addEventListener( 'resize', onWindowResize );
 
-    // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
-}
+			}
 
-tick()
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
+				render();
+
+			}
+
+			function render() {
+
+				renderer.render( scene, camera );
+
+			}
