@@ -44,12 +44,16 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positionArr
 //     size: 0.005
 // })
 
-const material = new THREE.MeshNormalMaterial()
+const material = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load('8081_earthmap10k.jpg'),
+    bumpMap: new THREE.TextureLoader().load('8081_earthbump10k.jpg'),
+    specularMap: new THREE.TextureLoader().load('8081_earthspec10k')
+})
 // const moonMaterial = new THREE.MeshStandardMaterial({
 //     map: moon,
 //     normal: normalMoon,
 // })
-material.wireframe = true
+// material.wireframe = true
 const particlesMaterial = new THREE.PointsMaterial({
     size: 0.07,
     map: cross,
@@ -65,11 +69,10 @@ scene.add(sphere, particlesMesh)
 
 
 // Lights
-const pointLight = new THREE.PointLight(0xffffff, 0.1)
-pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
-scene.add(pointLight)
+// const pointLight = new THREE.PointLight(0xffffff, 0.1)
+
+// pointLight.position.z = 5
+// scene.add(pointLight)
 
 /**
  * Sizes
@@ -99,9 +102,8 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.01, 500)
-camera.position.x = 20
-camera.position.y = 1
-camera.position.z = 1
+camera.position.x = 5
+// camera.position.z = 5
 scene.add(camera)
 
 // Controls
@@ -160,6 +162,7 @@ const sections = document.querySelectorAll('.section')
 const first = document.querySelector('.first')
 gsap.from(sphere.position, {
     y: 1,
+    x: 0,
     duration: 1,
     ease: 'expo',
 })
@@ -221,9 +224,9 @@ const moveCamera = () => {
     sphere.rotation.y += 0.075;
     sphere.rotation.z += 0.05;
 
-    camera.position.z = t * -0.01;
+    // camera.position.z = t * -0.01;
     camera.position.x = t * -0.0002;
-    camera.rotation.y = t * -0.0002;
+    // camera.rotation.y = t * -0.0002;
 
 }
 
