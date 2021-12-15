@@ -25,7 +25,7 @@ const scene = new THREE.Scene()
 
 // Objects
 // const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
-const geometry = new THREE.SphereGeometry(10, 50, 50)
+const globeGeometry = new THREE.SphereGeometry(10, 60, 60)
 
 const particlesGeometry = new THREE.BufferGeometry;
 
@@ -44,10 +44,12 @@ particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positionArr
 //     size: 0.005
 // })
 
-const material = new THREE.MeshBasicMaterial({
+const globeMaterial = new THREE.MeshBasicMaterial({
     map: new THREE.TextureLoader().load('8081_earthmap10k.jpg'),
     bumpMap: new THREE.TextureLoader().load('8081_earthbump10k.jpg'),
-    specularMap: new THREE.TextureLoader().load('8081_earthspec10k')
+    specularMap: new THREE.TextureLoader().load('8081_earthspec10k'),
+    bumpScale: 0.10,
+    specular: new THREE.Color('grey')
 })
 // const moonMaterial = new THREE.MeshStandardMaterial({
 //     map: moon,
@@ -62,11 +64,60 @@ const particlesMaterial = new THREE.PointsMaterial({
 })
 
 // Mesh
-const sphere = new THREE.Mesh(geometry,material)
+const sphere = new THREE.Mesh(globeGeometry,globeMaterial)
 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial)
 //scene.add(sphere, particlesMesh)
-scene.add(sphere, particlesMesh)
 
+
+
+
+//====================
+
+let earthCloudGeo = new THREE.SphereGeometry(6, 50, 50);
+
+// Add cloud texture
+let earthCloudsTexture = new THREE.TextureLoader().load('earthhiresclouds4K.jpg');
+
+// Add cloud material
+let earthMaterialClouds = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    map: earthCloudsTexture,
+    transparent:true,
+    opacity: 0.3
+});
+
+// Create final texture for clouds
+let earthClouds = new THREE.Mesh(earthCloudGeo, earthMaterialClouds);
+
+// Scale above the earth sphere mesh
+earthClouds.scale.set( 1.7, 1.7, 1.7);
+
+// Make child of the earth
+sphere.add( earthClouds ) 
+
+scene.add(sphere, particlesMesh)
+//====================
+
+//======================
+
+
+let moonGeometry = new THREE.SphereGeometry(1.64, 60, 60);
+let moonMap = new THREE.TextureLoader().load('moon.jpg');
+let moonBump = new THREE.TextureLoader().load('moonbump4k.jpg');
+let moonMaterial = new THREE.MeshBasicMaterial({
+    map: moonMap,
+    bumpMap: moonBump,
+    bumpScale: 0.2,
+});
+
+let moon = new THREE.Mesh(moonGeometry, moonMaterial);
+moon.position.set(10, 10, 10);
+sphere.add(moon);
+
+
+
+
+//======================
 
 // Lights
 // const pointLight = new THREE.PointLight(0xffffff, 0.1)
@@ -166,6 +217,12 @@ gsap.from(sphere.position, {
     duration: 1,
     ease: 'expo',
 })
+gsap.from(moon.position, {
+    y: 1,
+    x: 0,
+    duration: 0.5,
+    ease: 'expo',
+})
 gsap.from('h1', {
     yPercent: 100,
     autoAlpha: 0,
@@ -173,6 +230,12 @@ gsap.from('h1', {
     delay: 0.3,
 })
 gsap.to(sphere.rotation, {
+    x: Math.PI * 2,
+    scrollTrigger: {
+        trigger: sections[1],
+    },
+})
+gsap.to(moon.rotation, {
     x: Math.PI * 2,
     scrollTrigger: {
         trigger: sections[1],
@@ -224,6 +287,10 @@ const moveCamera = () => {
     sphere.rotation.y += 0.075;
     sphere.rotation.z += 0.05;
 
+    moon.rotation.x += 0.1;
+    moon.rotation.y += 0.15;
+    moon.rotation.z += 0.1;
+
     // camera.position.z = t * -0.01;
     camera.position.x = t * -0.0002;
     // camera.rotation.y = t * -0.0002;
@@ -242,6 +309,7 @@ const tick = () =>
 
     // Update objects
     sphere.rotation.y = .5 * elapsedTime
+    moon.rotation.y = .5 * elapsedTime
     particlesMesh.rotation.y = -.1 * elapsedTime
 
     if(mouseX > 0) {
