@@ -3,9 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThreeJS Starter</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Dordor's Portfolio</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
 </head>
 <body>
     <canvas class="webgl"></canvas>
+    <div class="container">
+        <div class="content">
+            <h1>The New <br>Era</h1>
+            <p>Welcome to Dordor's World</p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/CSSRulePlugin.min.js" integrity="sha512-0bzaetZStCnsUgbCtGVxftzF/L32PNOnrMlYLXwBOKl8cUjTSSDfJVyyJsNwGoI0iE0WUqni2eEfO35kJjFj5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const content = CSSRulePlugin.getRule('.content:before')
+        const h1 = document.querySelector('h1')
+        const p = document.querySelector('p')
+        const tl = gsap.timeline()
+
+        tl.from(content, {delay: .5, duration: 4, cssRule: {scaleX: 0}})
+        tl.to(h1, {duration: 2, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', y: '30px'}, "-=3")
+        tl.to(p, {duration: 4, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'}, "-=2")
+    </script>
+
+    <div id="section03" class="demo">
+        <h1>Scroll Down Button #3</h1>
+        <a href="#2"><span></span>Scroll</a>
+    </div>
+    <section id="1" class="section">
+        
+    </section>
+    <section id="2" class="section">
+    </section>
+    <section id="3" class="section">
+        <h1>Home</h1>
+    </section>
+    <section id="4" class="section">
+    </section>
+    <section id="5" class="section">
+    </section>
+    <script type="module" src="script.js"></script>
+    
 </body>
 </html>
