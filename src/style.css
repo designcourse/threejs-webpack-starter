@@ -1,20 +1,227 @@
-*
-{
+@import url("https://fonts.googleapis.com/css2?family=Arimo&family=Inter:wght@300&family=Mulish:wght@300&family=Poppins:wght@300&display=swap");
+:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --soft-color: #d6b1b1;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100vh;
+  font-family: "Poppins";
+  background-color: var(--black-color);
+}
+body {
+  overflow-x: hidden;
+}
+.webgl {
+  display: flex;
+  mix-blend-mode: exclusion;
+  position: absolute;
+}
+.container {
+  height: 20vh;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.container h1 {
+  text-transform: uppercase;
+  color: var(--white-color);
+  font-family: "Inter";
+}
+h1 {
+  font-size: clamp(3rem, 5vw + 1rem, 4.5rem);
+}
+.hero p,
+.touch,
+.move {
+  font-size: clamp(1.5rem, 4vw + 1rem, 2.5rem);
+}
+.space {
+  height: 78vh;
+}
+.hero {
+  color: var(--white-color);
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 0;
+  letter-spacing: 0.5rem;
+}
+.hero p {
+  margin-bottom: 30px;
+}
+.hero .touch {
+  max-width: 74%;
+}
+.hero .move {
+  max-width: 50%;
+  color: var(--soft-color);
+  text-align: center;
+}
+/* mouse scroll animation */
+#mouse-scroll {
+  display: block;
+}
+#mouse-scroll {
+  position: fixed;
+  margin: auto;
+  left: 90%;
+  bottom: 20px;
+  -webkit-transform: translateX(-50%);
+  z-index: 9999;
+  animation: opacityOn 5s normal forwards;
+  animation-delay: 10s;
+}
+@keyframes opacityOn {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+#mouse-scroll span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  transform: rotate(45deg);
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  margin: 0 0 3px 5px;
+}
+#mouse-scroll .mouse {
+  height: 21px;
+  width: 14px;
+  border-radius: 10px;
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+  border: 2px solid #ffffff;
+  top: 170px;
+}
+#mouse-scroll .down-arrow-1 {
+  margin-top: 6px;
+}
+#mouse-scroll .down-arrow-1,
+#mouse-scroll .down-arrow-2,
+#mouse-scroll .down-arrow-3 {
+  -webkit-animation: mouse-scroll 1s infinite;
+  -moz-animation: mouse-scroll 1s infinite;
+}
+#mouse-croll .down-arrow-1 {
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  -webkit-animation-direction: alternate;
+}
+#mouse-scroll .down-arrow-2 {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  -webkit-animation-direction: alternate;
+}
+#mouse-scroll .down-arrow-3 {
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-dekay: 0.3s;
+  -webkit-animation-direction: alternate;
+}
+#mouse-scroll .mouse-in {
+  height: 5px;
+  width: 2px;
+  display: block;
+  margin: 5px auto;
+  background: #ffffff;
+  position: relative;
+}
+#mouse-scroll .mouse-in {
+  -webkit-animation: animated-mouse 1.2s ease infinite;
+  moz-animation: mouse-animated 1.2s ease infinite;
+}
+@-webkit-keyframes animated-mouse {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(6px);
+    -ms-transform: translateY(6px);
+    transform: translateY(6px);
+  }
+}
+@-webkit-keyframes mouse-scroll {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes mouse-scroll {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (max-width: 700px) {
+  .container {
+    display: grid;
+    text-align: center;
     margin: 0;
     padding: 0;
-}
-
-html,
-body
-{
-    height: 100vh;
-    font-family: 'Poppins';
-}
-
-.webgl
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    outline: none;
+    align-self: center;
+  }
+  .webgl {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    height: 10vh;
+    max-width: 315px;
+    margin-bottom: 0;
+  }
+  .hero {
+    margin-top: 0;
+  }
+  .hero p {
+    display: block;
+    text-align: center;
+    align-self: center;
+    margin: 0 auto;
+  }
+  .touch,
+  .move {
+    display: flex;
+    margin-top: 10px;
+    padding: 0;
+    text-align: center;
+  }
+  .space {
+    display: none;
+  }
 }

@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThreeJS Starter</title>
-</head>
-<body>
-    <canvas class="webgl"></canvas>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three.js Sphere</title>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Feel the Sphere</h1>
+    </div>
+
+    <canvas id="webgl"></canvas>
+
+    <section class="space"></section>
+
+    <section>
+      <div class="hero">
+        <p>The circular shape</p>
+        <p class="touch">a touch of beauty</p>
+        <p class="move"><span>the delicate move</span></p>
+      </div>
+    </section>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- mouse scroll animation -->
+    <a href="#">
+      <div id="mouse-scroll">
+        <div class="mouse">
+          <div class="mouse-in"></div>
+        </div>
+        <div>
+          <span class="down-arrow-1"></span>
+          <span class="down-arrow-2"></span>
+          <span class="down-arrow-3"></span>
+        </div>
+      </div>
+    </a>
+
+    <script src="script.js" type="module"></script>
+
+    <script>
+      ScrollReveal({
+        reset: true,
+        distance: "60px",
+        duration: 2500,
+        delay: 400,
+      });
+      ScrollReveal().reveal(".container", { delay: 800, origin: "top" });
+      ScrollReveal().reveal(".hero", { delay: 900, origin: "bottom" });
+      ScrollReveal().reveal(".touch", { delay: 1000, origin: "left" });
+      ScrollReveal().reveal(".move", { delay: 1300, origin: "left" });
+    </script>
+  </body>
 </html>
