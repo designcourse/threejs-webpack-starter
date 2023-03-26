@@ -225,3 +225,14 @@ h1 {
     display: none;
   }
 }
+
+.disabled {
+  color: #fff;
+  background-color: rgb(56, 53, 53);
+  border-radius: 4px;
+  padding: 4px;
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 250px
+}
