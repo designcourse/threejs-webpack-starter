@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThreeJS Starter</title>
+    
 </head>
 <body>
+
+    <div class="container">
+        <div class="content">
+            <h1>The next<br>Dimension</h1>
+            <p>the journey into the next dimension with this crazy particle effect</p>
+        </div>
+    </div>
     <canvas class="webgl"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CSSRulePlugin.min.js" integrity="sha512-+35N1KBHwTDnFOBSqO2nm/qsf5okaS74sUZu/rT/wlvuAfJ1hrAoGlWZip2l1LHB1q2i8B2k84Pb/NrC38bv8Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+
+        const content = CSSRulePlugin.getRule('.content:before')
+        const h1 = document.querySelector('h1')
+        const p = document.querySelector('p')
+        const tl = gsap.timeline()
+
+        tl.from(content, { delay: .5, cssRule: {scaleX: 0}})
+        tl.to(h1, { duration: 2, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%);'}, "-=3")
+        tl.to(p, { duration: 4, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%);'}, "-=2")
+
+
+    </script>
 </body>
 </html>
