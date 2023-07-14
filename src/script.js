@@ -20,7 +20,7 @@ const scene = new THREE.Scene();
 const geometry = new THREE.TorusGeometry(0.7, 0.2, 16, 100);
 
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCnt = 50000;
+const particlesCnt = 5000;
 
 const posArray = new Float32Array(particlesCnt * 3);
 // xyz, xyz, xyz, xyz
@@ -135,11 +135,11 @@ const tick = () => {
 
   // Update objects
   sphere.rotation.y = 0.5 * elapsedTime;
-  particlesMesh.rotation.y = -0.005 * elapsedTime;
+  particlesMesh.rotation.x = -0.005 * elapsedTime;
 
   if (mouseX > 0) {
-    particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.000008);
-    particlesMesh.rotation.y = mouseX * (elapsedTime * 0.00004);
+    particlesMesh.rotation.y = -mouseY * (elapsedTime * 0.000008);
+    particlesMesh.rotation.y = mouseY * (elapsedTime * 0.00004);
   }
   // Update Orbital Controls
   // controls.update()
